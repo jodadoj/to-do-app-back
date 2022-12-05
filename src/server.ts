@@ -36,8 +36,8 @@ app.get("/", (req, res) => {
 
 // GET /items
 app.get("/items", (req, res) => {
-  const allSignatures = getAllDbItems();
-  res.status(200).json(allSignatures);
+  const allTasks = getAllDbItems();
+  res.status(200).json(allTasks);
 });
 
 // POST /items
@@ -45,37 +45,37 @@ app.post<{}, {}, DbItem>("/items", (req, res) => {
   // to be rigorous, ought to handle non-conforming request bodies
   // ... but omitting this as a simplification
   const postData = req.body;
-  const createdSignature = addDbItem(postData);
-  res.status(201).json(createdSignature);
+  const createdTask = addDbItem(postData);
+  res.status(201).json(createdTask);
 });
 
 // GET /items/:id
 app.get<{ id: string }>("/items/:id", (req, res) => {
-  const matchingSignature = getDbItemById(parseInt(req.params.id));
-  if (matchingSignature === "not found") {
-    res.status(404).json(matchingSignature);
+  const matchingTask = getDbItemById(parseInt(req.params.id));
+  if (matchingTask === "not found") {
+    res.status(404).json(matchingTask);
   } else {
-    res.status(200).json(matchingSignature);
+    res.status(200).json(matchingTask);
   }
 });
 
 // DELETE /items/:id
 app.delete<{ id: string }>("/items/:id", (req, res) => {
-  const matchingSignature = getDbItemById(parseInt(req.params.id));
-  if (matchingSignature === "not found") {
-    res.status(404).json(matchingSignature);
+  const matchingTask = getDbItemById(parseInt(req.params.id));
+  if (matchingTask === "not found") {
+    res.status(404).json(matchingTask);
   } else {
-    res.status(200).json(matchingSignature);
+    res.status(200).json(matchingTask);
   }
 });
 
 // PATCH /items/:id
 app.patch<{ id: string }, {}, Partial<DbItem>>("/items/:id", (req, res) => {
-  const matchingSignature = updateDbItemById(parseInt(req.params.id), req.body);
-  if (matchingSignature === "not found") {
-    res.status(404).json(matchingSignature);
+  const matchingTask = updateDbItemById(parseInt(req.params.id), req.body);
+  if (matchingTask === "not found") {
+    res.status(404).json(matchingTask);
   } else {
-    res.status(200).json(matchingSignature);
+    res.status(200).json(matchingTask);
   }
 });
 

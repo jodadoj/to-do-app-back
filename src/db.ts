@@ -1,5 +1,9 @@
+import faker from "faker";
 export interface DbItem {
   // sketch out interface here
+    name: string;
+    complete: boolean;
+    date: Date;
 }
 
 export interface DbItemWithId extends DbItem {
@@ -18,14 +22,16 @@ let idCounter = 0;
  * @returns the created items
  */
 export const addDummyDbItems = (n: number): DbItemWithId[] => {
-  const createdSignatures: DbItemWithId[] = [];
+  const createdTasks: DbItemWithId[] = [];
   for (let count = 0; count < n; count++) {
-    const createdSignature = addDbItem({
-      // possibly add some generated data here
+    const createdTask = addDbItem({
+      name: faker.lorem.sentences(3),
+      complete: false,
+      date: faker.date.soon()
     });
-    createdSignatures.push(createdSignature);
+    createdTasks.push(createdTask);
   }
-  return createdSignatures;
+  return createdTasks;
 };
 
 /**
